@@ -41,10 +41,10 @@ public class ConsultaMedica {
 
     @Override
     public String toString() {
-        return  "\nData da Consulta: " + dataConsulta + 
+        return  "\nNúmero da Consulta: " + numeroConsulta + 
+                "\nData da Consulta: " + dataConsulta + 
                 "\nHora da Consulta: " + horaConsulta + 
-                "\nMédico: " + medico +
-                "\nNúmero da Consulta: " + numeroConsulta + 
-                "\nPaciente: " + paciente + "\n";
+                "\nPaciente: " + paciente + 
+                "\nMédico: " + medico + "\n";
     }
 }

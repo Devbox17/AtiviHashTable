@@ -1,3 +1,4 @@
+import java.nio.channels.ShutdownChannelGroupException;
 import java.util.Hashtable;
 import java.util.Scanner;
 
@@ -21,49 +22,51 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         do {
-            System.out.println("\n\n______________Atividade HashTable_____________");
-            System.out.println("|                                            |");
-            System.out.println("|    1° - Registrar Paciente                 |");
-            System.out.println("| 2° - Registrar Médico |");
-            System.out.println("| 3° - Registrar Nova Consulta Médica |");
-            // System.out.println("| 4° - Remove Consulta Médica |");
-            // System.out.println("| 5° - Listar Consulta Médica |");
-            // System.out.println("| 6° - Sair do Programa |");
-            // System.out.println("|____________________________________________|");
+            System.out.println("\n\n________________Atividade HashTable__________________");
+            System.out.println("|                                                   |");
+            System.out.println("|       1° - Registrar Paciente                     |");
+            System.out.println("|       2° - Registrar Médico                       |");
+            System.out.println("|       3° - Registrar Nova Consulta Médica         |");
+            System.out.println("|       4° - Remove Consulta Médica                 |");
+            System.out.println("|       5° - Lista de Pacientes                     |");
+            System.out.println("|       6° - Lista de Médicos                       |");
+            System.out.println("|       7° - Lista de Relatórios Consulta Médica    |");
+            System.out.println("|       8° - Sair do Programa                       |");
+            System.out.println("|___________________________________________________|");
             System.out.printf("Digite uma opção: ");
             opcao = scanner.nextInt();
 
             switch (opcao) {
                 case 1:
                     contPa = inserirPaciente(contPa, infoPaciente);
-                    mostrarPaciente(infoPaciente);
-                    scanner.nextLine();
-                    scanner.nextLine();
                     break;
 
                 case 2:
                     contMe = inserirMedico(contMe, infoMedico);
-                    mostrarMedico(infoMedico);
-                    scanner.nextLine();
-                    scanner.nextLine();
                     break;
 
                 case 3:
-                    contCM = inserirConsultaMedica(opcao, contPa, contMe, contCM, infoPaciente, infoMedico, laudoMedico);
-                    relatorioLaudo(laudoMedico);
-                    scanner.nextLine();
-                    scanner.nextLine();
+                    contCM = inserirConsultaMedica(opcao, contPa, contMe, contCM, infoPaciente, infoMedico,
+                            laudoMedico);
                     break;
 
-                // case 4:
+                case 4:
+                    contCM = removerConsulta(opcao, contCM, laudoMedico);
+                    break;
 
-                // break;
+                case 5:
+                    mostrarPaciente(infoPaciente);
+                    break;
 
-                // case 5:
+                case 6:
+                    mostrarMedico(infoMedico);
+                    break;
 
-                // break;
+                case 7:
+                    relatorioLaudo(laudoMedico);
+                    break;
             }
-        } while (opcao < 6);
+        } while (opcao < 8);
     }
 
     public static int inserirPaciente(int contPa, Hashtable<Integer, Paciente> infoPaciente) {
@@ -142,21 +145,52 @@ public class Main {
         return contCM;
     }
 
+    public static int removerConsulta(int opcao, int contCM, Hashtable<Integer, ConsultaMedica> laudoMedico) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.printf("\nQual é o código da consulta, que tem que ser cancelado?: ");
+        opcao = scanner.nextInt();
+
+        System.out.printf("\nA consulta abaixo foi cancelada com sucesso!\n");
+
+        System.out.println(laudoMedico.get(opcao));
+
+        laudoMedico.remove(opcao);
+        contCM--;
+
+        return contCM;
+    }
+
     public static void mostrarPaciente(Hashtable<Integer, Paciente> infoPaciente) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\n--- Lista de Pacientes ---");
         for (Paciente paciente : infoPaciente.values()) {
             System.out.printf(paciente.toString());
         }
+
+        scanner.nextLine();
     }
 
     public static void mostrarMedico(Hashtable<Integer, Medico> infoMedico) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\n--- Lista de Médicos ---");
         for (Medico medico : infoMedico.values()) {
             System.out.printf(medico.toString());
         }
+
+        scanner.nextLine();
     }
 
     public static void relatorioLaudo(Hashtable<Integer, ConsultaMedica> laudoMedico) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\n--- Lista de Consultas Médicas ---");
         for (ConsultaMedica consultaMedica : laudoMedico.values()) {
             System.out.printf(consultaMedica.toString());
         }
+
+        scanner.nextLine();
     }
 }

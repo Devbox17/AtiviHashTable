@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Paciente
@@ -22,14 +23,17 @@ public class Paciente {
 
     public void cadastrarPaciente(int contPa) {
         Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
         
         codigo = contPa;
-        nome = "P" + random.nextInt(1000);
+        
+        System.out.printf("Digite o nome do médico: ");
+        nome = scanner.nextLine();
     }
 
     @Override
     public String toString() {
-        return  "\nNome Paciente: " + nome +
-                "\nCódigo: " + codigo + "\n";
-    }
+        return  "\nCódigo: " + codigo +
+                "\nNome Paciente: " + nome + "\n";
+        }
 }

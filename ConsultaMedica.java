@@ -11,18 +11,28 @@ public class ConsultaMedica {
     private int paciente;
     private int medico;
 
+    ConsultaMedica() {
+        numeroConsulta = 00000000;
+        dataConsulta = "00/00/0000";
+        horaConsulta = "00:00";
+        paciente = 0;
+        medico = 0;
+    }
+
     // ConsultaMedica() {
-    //     numeroConsulta = 00000000;
-    //     dataConsulta = "00/00/0000";
-    //     horaConsulta = "00:00";
-    //     paciente = 0;
-    //     medico = 0;
+    //     Random random = new Random();
+        
+    //     numeroConsulta = random.nextInt(20000000);
+    //     dataConsulta = random.nextInt(32) + "/" + random.nextInt(13) + "/" + "2020";
+    //     horaConsulta = random.nextInt(25) + ":" + random.nextInt(60);
+    //     paciente = random.nextInt(200);
+    //     medico = random.nextInt(200);
     // }
 
-    ConsultaMedica() {
+    public void cadastrarConsultaMedica(int contCM) {
         Random random = new Random();
         
-        numeroConsulta = random.nextInt(20000000);
+        numeroConsulta = contCM;
         dataConsulta = random.nextInt(32) + "/" + random.nextInt(13) + "/" + "2020";
         horaConsulta = random.nextInt(25) + ":" + random.nextInt(60);
         paciente = random.nextInt(200);
@@ -33,8 +43,8 @@ public class ConsultaMedica {
     public String toString() {
         return  "\nData da Consulta: " + dataConsulta + 
                 "\nHora da Consulta: " + horaConsulta + 
-                "\nNome do Médico: " + medico +
+                "\nMédico: " + medico +
                 "\nNúmero da Consulta: " + numeroConsulta + 
-                "\nNome do Paciente: " + paciente;
+                "\nPaciente: " + paciente + "\n";
     }
 }

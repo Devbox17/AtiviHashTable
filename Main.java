@@ -7,20 +7,17 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Paciente paciente = new Paciente();
-        Medico medico = new Medico();
-        ConsultaMedica consultaMedica = new ConsultaMedica();
         Hashtable<Integer, ConsultaMedica> laudoMedico = new Hashtable<Integer, ConsultaMedica>();
         Hashtable<Integer, Paciente> infoPaciente = new Hashtable<Integer, Paciente>();
         Hashtable<Integer, Medico> infoMedico = new Hashtable<Integer, Medico>();
         int opcao = 0, contPa = 0, contMe = 0, contCM = 0;
 
-        menu(opcao, contPa, contMe, contCM, paciente, medico, consultaMedica, laudoMedico, infoPaciente, infoMedico);
+        menu(opcao, contPa, contMe, contCM, laudoMedico, infoPaciente, infoMedico);
     }
 
-    public static void menu(int opcao, int contPa, int contMe, int contCM, Paciente paciente, Medico medico,
-            ConsultaMedica consultaMedica, Hashtable<Integer, ConsultaMedica> laudoMedico,
-            Hashtable<Integer, Paciente> infoPaciente, Hashtable<Integer, Medico> infoMedico) {
+    public static void menu(int opcao, int contPa, int contMe, int contCM,
+            Hashtable<Integer, ConsultaMedica> laudoMedico, Hashtable<Integer, Paciente> infoPaciente,
+            Hashtable<Integer, Medico> infoMedico) {
         Scanner scanner = new Scanner(System.in);
 
         do {
@@ -38,15 +35,24 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-                    contPa = inserirPaciente(contPa, paciente, infoPaciente);
+                    contPa = inserirPaciente(contPa, infoPaciente);
+                    mostrarPaciente(infoPaciente);
+                    scanner.nextLine();
+                    scanner.nextLine();
                     break;
 
                 case 2:
-                    contMe = inserirMedico(contMe, medico, infoMedico);
+                    contMe = inserirMedico(contMe, infoMedico);
+                    mostrarMedico(infoMedico);
+                    scanner.nextLine();
+                    scanner.nextLine();
                     break;
 
                 case 3:
-                    contCM = inserirConsultaMedica(contCM, consultaMedica, laudoMedico);
+                    contCM = inserirConsultaMedica(contCM, laudoMedico);
+                    relatorioLaudo(laudoMedico);
+                    scanner.nextLine();
+                    scanner.nextLine();
                     break;
 
                 // case 4:
@@ -60,34 +66,51 @@ public class Main {
         } while (opcao < 6);
     }
 
-    public static int inserirPaciente(int contPa, Paciente paciente, Hashtable<Integer, Paciente> infoPaciente) {
-        paciente = new Paciente();
+    public static int inserirPaciente(int contPa, Hashtable<Integer, Paciente> infoPaciente) {
+        Paciente paciente = new Paciente();
+
+        paciente.cadastrarPaciente(contPa);
         infoPaciente.put(contPa, paciente);
         contPa++;
 
         return contPa;
     }
 
-    public static int inserirMedico(int contMe, Medico medico, Hashtable<Integer, Medico> infoMedico) {
-        medico = new Medico();
+    public static int inserirMedico(int contMe, Hashtable<Integer, Medico> infoMedico) {
+        Medico medico = new Medico();
+
+        medico.cadastrarMedico(contMe);
         infoMedico.put(contMe, medico);
         contMe++;
 
         return contMe;
     }
 
-    public static int inserirConsultaMedica(int contCM, ConsultaMedica consultaMedica,
-            Hashtable<Integer, ConsultaMedica> laudoMedico) {
-        consultaMedica = new ConsultaMedica();
+    public static int inserirConsultaMedica(int contCM, Hashtable<Integer, ConsultaMedica> laudoMedico) {
+        ConsultaMedica consultaMedica = new ConsultaMedica();
+
+        consultaMedica.cadastrarConsultaMedica(contCM);
         laudoMedico.put(contCM, consultaMedica);
         contCM++;
 
         return contCM;
     }
 
-    public static void mo(int contPa, Hashtable<Integer, Paciente> infoPaciente) {
+    public static void mostrarPaciente(Hashtable<Integer, Paciente> infoPaciente) {
         for (Paciente paciente : infoPaciente.values()) {
             System.out.printf(paciente.toString());
+        }
+    }
+
+    public static void mostrarMedico(Hashtable<Integer, Medico> infoMedico) {
+        for (Medico medico : infoMedico.values()) {
+            System.out.printf(medico.toString());
+        }
+    }
+
+    public static void relatorioLaudo(Hashtable<Integer, ConsultaMedica> laudoMedico) {
+        for (ConsultaMedica consultaMedica : laudoMedico.values()) {
+            System.out.printf(consultaMedica.toString());
         }
     }
 }

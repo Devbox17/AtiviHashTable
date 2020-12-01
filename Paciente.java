@@ -8,21 +8,28 @@ public class Paciente {
     private int codigo;
     private String nome;
 
+    Paciente() {
+        codigo = 000000000;
+        nome = "None";
+    }
+
     // Paciente() {
-    //     codigo = 000000000;
-    //     nome = "None";
+    //     Random random = new Random();
+        
+    //     codigo = random.nextInt(20000000);
+    //     nome = "P" + random.nextInt(1000);
     // }
 
-    Paciente() {
+    public void cadastrarPaciente(int contPa) {
         Random random = new Random();
         
-        codigo = random.nextInt(20000000);
+        codigo = contPa;
         nome = "P" + random.nextInt(1000);
     }
 
     @Override
     public String toString() {
         return  "\nNome Paciente: " + nome +
-                "\nCódigo: " + codigo;
+                "\nCódigo: " + codigo + "\n";
     }
 }

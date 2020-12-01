@@ -9,16 +9,24 @@ public class Medico {
     private String nome;
     private String especialidade;
 
+    Medico() {
+        CRM = 00000000000;
+        nome = "None";
+        especialidade = "None";
+    }
+
     // Medico() {
-    //     CRM = 00000000000;
-    //     nome = "None";
-    //     especialidade = "None";
+    //     Random random = new Random();
+
+    //     CRM = random.nextInt(20000000);
+    //     nome = "M" + random.nextInt(1000);
+    //     especialidade = "E" + random.nextInt(1000);
     // }
 
-    Medico() {
+    public void cadastrarMedico(int contMe) {
         Random random = new Random();
 
-        CRM = random.nextInt(20000000);
+        CRM = contMe;
         nome = "M" + random.nextInt(1000);
         especialidade = "E" + random.nextInt(1000);
     }
@@ -27,6 +35,6 @@ public class Medico {
     public String toString() {
         return  "\nNome Médico: " + nome +
                 "\nCRM: " + CRM + 
-                "\nEspecialidade: " + especialidade;
+                "\nEspecialidade: " + especialidade + "\n";
     }
 }

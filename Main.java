@@ -49,7 +49,7 @@ public class Main {
                     break;
 
                 case 3:
-                    contCM = inserirConsultaMedica(contCM, laudoMedico);
+                    contCM = inserirConsultaMedica(opcao, contPa, contMe, contCM, infoPaciente, infoMedico, laudoMedico);
                     relatorioLaudo(laudoMedico);
                     scanner.nextLine();
                     scanner.nextLine();
@@ -69,9 +69,9 @@ public class Main {
     public static int inserirPaciente(int contPa, Hashtable<Integer, Paciente> infoPaciente) {
         Paciente paciente = new Paciente();
 
+        contPa++;
         paciente.cadastrarPaciente(contPa);
         infoPaciente.put(contPa, paciente);
-        contPa++;
 
         return contPa;
     }
@@ -79,19 +79,65 @@ public class Main {
     public static int inserirMedico(int contMe, Hashtable<Integer, Medico> infoMedico) {
         Medico medico = new Medico();
 
+        contMe++;
         medico.cadastrarMedico(contMe);
         infoMedico.put(contMe, medico);
-        contMe++;
 
         return contMe;
     }
 
-    public static int inserirConsultaMedica(int contCM, Hashtable<Integer, ConsultaMedica> laudoMedico) {
+    public static int inserirConsultaMedica(int opcao, int contPa, int contMe, int contCM,
+            Hashtable<Integer, Paciente> infoPaciente, Hashtable<Integer, Medico> infoMedico,
+            Hashtable<Integer, ConsultaMedica> laudoMedico) {
+        Scanner scanner = new Scanner(System.in);
         ConsultaMedica consultaMedica = new ConsultaMedica();
+        int valorPaciente = 0, valorMedico = 0;
 
-        consultaMedica.cadastrarConsultaMedica(contCM);
-        laudoMedico.put(contCM, consultaMedica);
+        do {
+            do {
+                System.out.printf("\nDigite o número referente ao paciente: ");
+                valorPaciente = scanner.nextInt();
+
+                if (valorPaciente == 0) {
+                    System.out.printf("\nValor inválido, digite novamente!\n");
+                    scanner.nextLine();
+                    scanner.nextLine();
+                }
+            } while (valorPaciente == 0);
+
+            if (valorPaciente > contPa) {
+                System.out.printf("\nNão existe esse paciente nos registros, digite novamente!\n");
+                System.out.printf("Registre um novo paciente, ou tente outro valor para buscar!\n");
+                scanner.nextLine();
+                scanner.nextLine();
+                menu(opcao, contPa, contMe, contCM, laudoMedico, infoPaciente, infoMedico);
+            }
+        } while (valorPaciente > contPa);
+
+        do {
+            do {
+                System.out.printf("\nDigite o número referente ao médico: ");
+                valorMedico = scanner.nextInt();
+
+                if (valorMedico == 0) {
+                    System.out.printf("\nValor inválido, digite novamente!\n");
+                    scanner.nextLine();
+                    scanner.nextLine();
+                }
+            } while (valorMedico == 0);
+
+            if (valorMedico > contMe) {
+                System.out.printf("\nNão existe esse médico nos registros, digite novamente!\n");
+                System.out.printf("Registre um novo médico, ou tente outro valor para buscar!\n");
+                scanner.nextLine();
+                scanner.nextLine();
+                menu(opcao, contPa, contMe, contCM, laudoMedico, infoPaciente, infoMedico);
+            }
+        } while (valorMedico > contMe);
+
         contCM++;
+        consultaMedica.cadastrarConsultaMedica(contCM, valorPaciente, valorMedico);
+        laudoMedico.put(contCM, consultaMedica);
 
         return contCM;
     }
